@@ -1,5 +1,12 @@
 import pandas as pd
 
+import os, sys
+
+path = os.path.abspath(os.path.dirname(__file__))
+sys.path.insert(0, path)
+
+from ingest_data import load_data
+
 def preprocess_data(df: pd.DataFrame) -> pd.DataFrame:
     """
     Preprocess the input DataFrame.
@@ -80,8 +87,12 @@ def preprocess_data(df: pd.DataFrame) -> pd.DataFrame:
     return df_filtered
 
 if __name__ == "__main__":
-    # Example usage
-    df = pd.read_csv("../../../data/processed/final_dataset.csv")
+    PARENT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "dataset"))
+    DATANAME = "laptop_dataset.csv"
+
+    DATAPATH = os.path.join(PARENT_DIR, DATANAME)
+
+    df = load_data(DATAPATH)
+
     cleaned_df = preprocess_data(df)
-    cleaned_df.to_csv("processed_final_dataset.csv", index=False)
     print(cleaned_df.head())

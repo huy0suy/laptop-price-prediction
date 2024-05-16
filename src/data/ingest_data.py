@@ -19,6 +19,10 @@ def load_data(filepath: str) -> pd.DataFrame:
         return pd.DataFrame()
 
 if __name__ == "__main__":
-    # Example usage
-    df = load_data("../../../data/processed/final_dataset.csv")
+    PARENT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "dataset"))
+    DATANAME = "laptop_dataset.csv"
+
+    DATAPATH = os.path.join(PARENT_DIR, DATANAME)
+
+    df = load_data(filepath=DATAPATH)
     print(df.head())

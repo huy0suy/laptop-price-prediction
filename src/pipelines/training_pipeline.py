@@ -2,6 +2,11 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 import pickle
 
+import os, sys
+
+path = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+sys.path.insert(0, path)
+
 from data.ingest_data import load_data
 from data.preprocessing import preprocess_data
 from data.divide_data import split_data
@@ -48,7 +53,13 @@ def save_model_and_scaler(model, scaler, model_path: str, scaler_path: str):
 
 if __name__ == "__main__":
     # Load and preprocess data
-    df = load_data("../../../data/processed/final_dataset.csv")
+    PARENT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "dataset"))
+    DATANAME = "laptop_dataset.csv"
+
+    DATAPATH = os.path.join(PARENT_DIR, DATANAME)
+
+    df = load_data(DATAPATH)
+
     df_cleaned = preprocess_data(df)
 
     # Split data
